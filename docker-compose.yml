@@ -1,0 +1,26 @@
+services:
+  pocketbase:
+    build: ./pocketbase
+    container_name: poker_db
+    volumes:
+      - ./pb_data:/pb/pb_data
+    ports:
+      - "8090:8080"
+    restart: unless-stopped
+
+  poker-app:
+    build:
+      context: ./SK
+      dockerfile: Dockerfile.dev
+    container_name: poker_ui
+    # ─── ADD CONFIGURATIONS BELOW FOR LIVE CHANGES ───
+    environment:
+      - SECRET_POCKETBASE_URL=http://pocketbase:8080
+    volumes:
+      - ./SK:/app # Mounts your code directory into the container
+      - /app/node_modules # Protects the container's internal node_modules from being overwritten
+    ports:
+      - "5173:5173" # Vite's default development port
+    # ────────────────────────────────────────────────
+    depends_on:
+      - pocketbase

@@ -1,0 +1,26 @@
+# PocketBase data - real user data, never commit
+pb_data
+
+# Env files - secrets
+.env
+.env.*
+!.env.example
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Editor
+.idea
+*.swp
+*.swo
+*~
+
+# Logs
+*.log
+npm-debug.log*
+
+# Credentials/certs that might get dropped into the repo by accident
+*.pem
+*.key
+cert.pem
