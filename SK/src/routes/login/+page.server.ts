@@ -3,7 +3,7 @@ import type { Actions, PageServerLoad } from './$types';
 
 export const load: PageServerLoad = async ({ locals }) => {
 	if (locals.user) {
-		throw redirect(303, '/');
+		redirect(303, '/');
 	}
 };
 
@@ -20,10 +20,10 @@ export const actions: Actions = {
 			return fail(400, { username, message: 'Invalid username or password' });
 		}
 
-		throw redirect(303, '/');
+		redirect(303, '/');
 	},
 	logout: async ({ locals }) => {
 		locals.pb.authStore.clear();
-		throw redirect(303, '/login');
+		redirect(303, '/login');
 	}
 };

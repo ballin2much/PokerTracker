@@ -2,10 +2,16 @@ FROM node:26-alpine
 
 WORKDIR /app
 
-COPY package*.json ./
+# Run as the image's built-in non-root "node" user (uid/gid 1000) instead of root.
+# ./SK is bind-mounted from the host, so files this container writes (e.g. .svelte-kit/)
+# would otherwise end up root-owned on the host and unwritable by the host user.
+RUN chown node:node /app
+USER node
+
+COPY --chown=node:node package*.json ./
 RUN npm install
 
-COPY . .
+COPY --chown=node:node . .
 
 EXPOSE 5173
 

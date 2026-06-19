@@ -3,7 +3,11 @@
 </script>
 
 <div class="flex flex-col items-center justify-center min-h-screen bg-nord0 p-4">
-	<form method="POST" action="?/login" class="bg-nord1 p-6 sm:p-8 rounded shadow-lg w-full max-w-sm">
+	<form
+		method="POST"
+		action="?/login"
+		class="bg-nord1 p-6 sm:p-8 rounded shadow-lg w-full max-w-sm"
+	>
 		<h1 class="text-2xl font-bold mb-4 text-nord6">Login</h1>
 
 		{#if form?.message}
@@ -26,6 +30,10 @@
 			required
 		/>
 
-		<button type="submit" class="bg-nord14 hover:bg-nord14/80 text-nord0 font-bold p-2 rounded w-full transition">Login</button>
+		<button
+			type="submit"
+			class="bg-nord14 hover:bg-nord14/80 text-nord0 font-bold p-2 rounded w-full transition"
+			>Login</button
+		>
 	</form>
 </div>

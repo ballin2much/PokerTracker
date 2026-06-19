@@ -107,7 +107,7 @@ export const load = (async ({ locals }) => {
 export const actions: Actions = {
 	logout: async ({ locals }) => {
 		locals.pb.authStore.clear();
-		throw redirect(303, '/login');
+		redirect(303, '/login');
 	},
 	addTransaction: async ({ locals, request }) => {
 		if (!locals.user?.admin) {
@@ -121,7 +121,8 @@ export const actions: Actions = {
 
 		if (
 			!userId ||
-			(type !== TransactionsSelectOptions.deposit && type !== TransactionsSelectOptions.withdrawal) ||
+			(type !== TransactionsSelectOptions.deposit &&
+				type !== TransactionsSelectOptions.withdrawal) ||
 			!amount ||
 			amount <= 0
 		) {

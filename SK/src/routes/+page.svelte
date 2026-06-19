@@ -8,10 +8,14 @@
 </script>
 
 <div class="min-h-screen bg-nord0 p-4 sm:p-8">
-	<header class="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4 mb-8 max-w-5xl mx-auto">
+	<header
+		class="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4 mb-8 max-w-5xl mx-auto"
+	>
 		<div>
 			<h1 class="text-3xl font-bold text-nord6">Leaderboard</h1>
-			<p class="text-nord4">Playing as: <span class="font-semibold text-nord6">{data.user?.username}</span></p>
+			<p class="text-nord4">
+				Playing as: <span class="font-semibold text-nord6">{data.user?.username}</span>
+			</p>
 		</div>
 		{#if data.user?.admin}
 			<div class="flex flex-wrap gap-3">
@@ -37,7 +41,9 @@
 		<div class="bg-nord1 rounded-lg shadow-lg p-6 mb-6 max-w-5xl mx-auto">
 			<h2 class="text-lg font-bold text-nord5 mb-4">Add Player</h2>
 			{#if form?.message}
-				<p class="text-nord11 mb-4 p-2 bg-nord11/10 rounded border border-nord11/30 text-sm">{form.message}</p>
+				<p class="text-nord11 mb-4 p-2 bg-nord11/10 rounded border border-nord11/30 text-sm">
+					{form.message}
+				</p>
 			{/if}
 			<form
 				method="POST"
@@ -51,7 +57,8 @@
 				class="flex flex-col sm:flex-row sm:flex-wrap gap-4 sm:items-end"
 			>
 				<div class="w-full sm:w-auto">
-					<label for="newUsername" class="block text-sm font-medium text-nord4 mb-1">Username</label>
+					<label for="newUsername" class="block text-sm font-medium text-nord4 mb-1">Username</label
+					>
 					<input
 						type="text"
 						name="username"
@@ -61,7 +68,8 @@
 					/>
 				</div>
 				<div class="w-full sm:w-auto">
-					<label for="newPassword" class="block text-sm font-medium text-nord4 mb-1">Password</label>
+					<label for="newPassword" class="block text-sm font-medium text-nord4 mb-1">Password</label
+					>
 					<input
 						type="password"
 						name="password"
@@ -72,7 +80,9 @@
 					/>
 				</div>
 				<div class="w-full sm:w-auto">
-					<label for="newPasswordConfirm" class="block text-sm font-medium text-nord4 mb-1">Confirm Password</label>
+					<label for="newPasswordConfirm" class="block text-sm font-medium text-nord4 mb-1"
+						>Confirm Password</label
+					>
 					<input
 						type="password"
 						name="passwordConfirm"
@@ -83,10 +93,17 @@
 					/>
 				</div>
 				<label class="flex items-center gap-2 text-sm text-nord4 pb-2">
-					<input type="checkbox" name="admin" class="w-4 h-4 text-nord10 rounded focus:ring-nord8" />
+					<input
+						type="checkbox"
+						name="admin"
+						class="w-4 h-4 text-nord10 rounded focus:ring-nord8"
+					/>
 					Admin
 				</label>
-				<button type="submit" class="bg-nord14 hover:bg-nord14/80 text-nord0 font-bold py-2 px-4 rounded transition w-full sm:w-auto">
+				<button
+					type="submit"
+					class="bg-nord14 hover:bg-nord14/80 text-nord0 font-bold py-2 px-4 rounded transition w-full sm:w-auto"
+				>
 					Create Player
 				</button>
 			</form>
@@ -97,7 +114,9 @@
 		<div class="bg-nord1 rounded-lg shadow-lg p-6 mb-6 max-w-5xl mx-auto">
 			<h2 class="text-lg font-bold text-nord5 mb-4">Add Transaction</h2>
 			{#if form?.message}
-				<p class="text-nord11 mb-4 p-2 bg-nord11/10 rounded border border-nord11/30 text-sm">{form.message}</p>
+				<p class="text-nord11 mb-4 p-2 bg-nord11/10 rounded border border-nord11/30 text-sm">
+					{form.message}
+				</p>
 			{/if}
 			<form
 				method="POST"
@@ -147,7 +166,10 @@
 						required
 					/>
 				</div>
-				<button type="submit" class="bg-nord14 hover:bg-nord14/80 text-nord0 font-bold py-2 px-4 rounded transition w-full sm:w-auto">
+				<button
+					type="submit"
+					class="bg-nord14 hover:bg-nord14/80 text-nord0 font-bold py-2 px-4 rounded transition w-full sm:w-auto"
+				>
 					Submit
 				</button>
 			</form>
@@ -158,16 +180,28 @@
 		<table class="min-w-full divide-y divide-nord2">
 			<thead class="bg-nord2">
 				<tr>
-					<th class="px-6 py-3 text-left text-xs font-medium text-nord4 uppercase tracking-wider">Player</th>
-					<th class="px-6 py-3 text-right text-xs font-medium text-nord4 uppercase tracking-wider">Career Buy-In</th>
-					<th class="px-6 py-3 text-right text-xs font-medium text-nord4 uppercase tracking-wider">Career Earnings</th>
-					<th class="px-6 py-3 text-right text-xs font-medium text-nord4 uppercase tracking-wider">Deposits</th>
-					<th class="px-6 py-3 text-right text-xs font-medium text-nord4 uppercase tracking-wider">Withdrawals</th>
-					<th class="px-6 py-3 text-right text-xs font-medium text-nord4 uppercase tracking-wider">Owed / Due</th>
+					<th class="px-6 py-3 text-left text-xs font-medium text-nord4 uppercase tracking-wider"
+						>Player</th
+					>
+					<th class="px-6 py-3 text-right text-xs font-medium text-nord4 uppercase tracking-wider"
+						>Career Buy-In</th
+					>
+					<th class="px-6 py-3 text-right text-xs font-medium text-nord4 uppercase tracking-wider"
+						>Career Earnings</th
+					>
+					<th class="px-6 py-3 text-right text-xs font-medium text-nord4 uppercase tracking-wider"
+						>Deposits</th
+					>
+					<th class="px-6 py-3 text-right text-xs font-medium text-nord4 uppercase tracking-wider"
+						>Withdrawals</th
+					>
+					<th class="px-6 py-3 text-right text-xs font-medium text-nord4 uppercase tracking-wider"
+						>Owed / Due</th
+					>
 				</tr>
 			</thead>
 			<tbody class="bg-nord1 divide-y divide-nord2">
-			{#each data.users as user (user.id)}
+				{#each data.users as user (user.id)}
 					<tr class={user.id === data.user?.id ? 'bg-nord10/15' : ''}>
 						<td class="px-6 py-4 whitespace-nowrap">
 							<div class="text-sm font-medium text-nord6">{user.username || user.email}</div>
@@ -180,11 +214,17 @@
 						<td class="px-6 py-4 whitespace-nowrap text-right">
 							{#if (user.career_earnings ?? 0) < 0}
 								<div class="text-sm font-mono font-bold text-nord11">
-									(${Math.abs(user.career_earnings ?? 0).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })})
+									(${Math.abs(user.career_earnings ?? 0).toLocaleString(undefined, {
+										minimumFractionDigits: 2,
+										maximumFractionDigits: 2
+									})})
 								</div>
 							{:else}
 								<div class="text-sm font-mono font-bold text-nord14">
-									${(user.career_earnings ?? 0).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+									${(user.career_earnings ?? 0).toLocaleString(undefined, {
+										minimumFractionDigits: 2,
+										maximumFractionDigits: 2
+									})}
 								</div>
 							{/if}
 						</td>
@@ -201,11 +241,17 @@
 						<td class="px-6 py-4 whitespace-nowrap text-right">
 							{#if (user.money_owed_due ?? 0) >= 0}
 								<span class="text-sm font-mono font-bold text-nord14">
-									Owed ${(user.money_owed_due ?? 0).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+									Owed ${(user.money_owed_due ?? 0).toLocaleString(undefined, {
+										minimumFractionDigits: 2,
+										maximumFractionDigits: 2
+									})}
 								</span>
 							{:else}
 								<span class="text-sm font-mono font-bold text-nord11">
-									Due ${Math.abs(user.money_owed_due ?? 0).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+									Due ${Math.abs(user.money_owed_due ?? 0).toLocaleString(undefined, {
+										minimumFractionDigits: 2,
+										maximumFractionDigits: 2
+									})}
 								</span>
 							{/if}
 						</td>

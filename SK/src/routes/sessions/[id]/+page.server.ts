@@ -9,7 +9,9 @@ import {
 
 export const load: PageServerLoad = async ({ locals, params }) => {
 	try {
-		const session = await locals.pb.collection(Collections.Session).getOne<SessionResponse>(params.id);
+		const session = await locals.pb
+			.collection(Collections.Session)
+			.getOne<SessionResponse>(params.id);
 
 		// Fetch performance records and expand the user (relation2)
 		const performances = await locals.pb
@@ -48,7 +50,7 @@ export const load: PageServerLoad = async ({ locals, params }) => {
 		// Throw the actual error status if available, otherwise default to 500
 		const status = err && typeof err === 'object' && 'status' in err ? Number(err.status) : 500;
 		const message = err instanceof Error ? err.message : 'Session not found';
-		throw error(status || 500, message);
+		error(status || 500, message);
 	}
 };
 
@@ -59,7 +61,9 @@ export const actions: Actions = {
 		}
 
 		try {
-			const session = await locals.pb.collection(Collections.Session).getOne<SessionResponse>(params.id);
+			const session = await locals.pb
+				.collection(Collections.Session)
+				.getOne<SessionResponse>(params.id);
 			await locals.pb.collection(Collections.Session).update(params.id, {
 				active: !session.active
 			});
@@ -80,7 +84,9 @@ export const actions: Actions = {
 				.getOne<SessionPerformanceResponse>(performanceId);
 
 			// Optional: verify session is still active
-			const session = await locals.pb.collection(Collections.Session).getOne<SessionResponse>(perf.relation);
+			const session = await locals.pb
+				.collection(Collections.Session)
+				.getOne<SessionResponse>(perf.relation);
 			if (!session.active) return fail(400, { message: 'Session is inactive' });
 
 			const newCount = Math.max(0, (perf.buy_in_count || 0) + delta);

@@ -52,6 +52,6 @@ export const actions: Actions = {
 			return fail(400, { message });
 		}
 
-		throw redirect(303, '/sessions');
+		redirect(303, '/sessions');
 	}
 };

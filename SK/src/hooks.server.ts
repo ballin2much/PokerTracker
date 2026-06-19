@@ -35,7 +35,7 @@ export const handle: Handle = async ({ event, resolve }) => {
 	// Check if the user is not logged in AND the current route is not a public route
 	if (!event.locals.user && !publicRoutes.includes(event.url.pathname)) {
 		// Redirect to the login page if not authenticated and trying to access a protected route
-		throw redirect(303, '/login');
+		redirect(303, '/login');
 	}
 
 	// If the user is logged in or accessing a public route, continue with the request
