@@ -39,8 +39,8 @@ export const actions: Actions = {
 			const batch = locals.pb.createBatch();
 			for (const userId of selectedUsers) {
 				batch.collection(Collections.SessionPerformance).create({
-					relation: session.id, // Links to Session (per pb_schema.json)
-					relation2: userId, // Links to User (per pb_schema.json)
+					session: session.id,
+					user: userId,
 					buy_in_count: 1, // Starting with 1 buy-in
 					ending_stack: 0 // Initial stack
 				});

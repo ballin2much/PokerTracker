@@ -17,8 +17,8 @@ export const load = (async ({ locals }) => {
 		locals.pb.collection(Collections.Users).getFullList<UsersResponse>(),
 		locals.pb
 			.collection(Collections.SessionPerformance)
-			.getFullList<SessionPerformanceResponse<{ relation: SessionResponse }>>({
-				expand: 'relation'
+			.getFullList<SessionPerformanceResponse<{ session: SessionResponse }>>({
+				expand: 'session'
 			}),
 		locals.pb.collection(Collections.Transactions).getFullList<TransactionsResponse>()
 	]);
@@ -26,9 +26,9 @@ export const load = (async ({ locals }) => {
 	// Group performances by user ID to optimize calculation from O(N*M) to O(N+M)
 	const perfsByUserId = performances.reduce(
 		(acc, p) => {
-			if (!p.relation2) return acc;
-			if (!acc[p.relation2]) acc[p.relation2] = [];
-			acc[p.relation2].push(p);
+			if (!p.user) return acc;
+			if (!acc[p.user]) acc[p.user] = [];
+			acc[p.user].push(p);
 			return acc;
 		},
 		{} as Record<string, typeof performances>
@@ -37,9 +37,9 @@ export const load = (async ({ locals }) => {
 	// Group transactions by user ID
 	const transactionsByUserId = transactions.reduce(
 		(acc, t) => {
-			if (!t.relation) return acc;
-			if (!acc[t.relation]) acc[t.relation] = [];
-			acc[t.relation].push(t);
+			if (!t.user) return acc;
+			if (!acc[t.user]) acc[t.user] = [];
+			acc[t.user].push(t);
 			return acc;
 		},
 		{} as Record<string, typeof transactions>
@@ -53,7 +53,7 @@ export const load = (async ({ locals }) => {
 		const userPerformances = perfsByUserId[user.id] || [];
 
 		for (const p of userPerformances) {
-			const session = p.expand?.relation;
+			const session = p.expand?.session;
 
 			// Only count stats from sessions that are no longer active
 			if (session && !session.active) {
@@ -131,7 +131,7 @@ export const actions: Actions = {
 
 		try {
 			await locals.pb.collection(Collections.Transactions).create({
-				relation: userId,
+				user: userId,
 				select: type,
 				amount
 			});

@@ -127,7 +127,7 @@
 							{i + 1}
 						</td>
 						<td class="px-6 py-4 whitespace-nowrap text-sm font-bold text-nord6">
-							{perf.expand?.relation2?.username || perf.expand?.relation2?.email || 'Unknown'}
+							{perf.expand?.user?.username || perf.expand?.user?.email || 'Unknown'}
 						</td>
 						<td class="px-6 py-4 whitespace-nowrap text-sm text-center text-nord4">
 							{#if session.active}

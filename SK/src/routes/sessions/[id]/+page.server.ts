@@ -13,12 +13,12 @@ export const load: PageServerLoad = async ({ locals, params }) => {
 			.collection(Collections.Session)
 			.getOne<SessionResponse>(params.id);
 
-		// Fetch performance records and expand the user (relation2)
+		// Fetch performance records and expand the user
 		const performances = await locals.pb
 			.collection(Collections.SessionPerformance)
-			.getFullList<SessionPerformanceResponse<{ relation2: UsersResponse }>>({
-				filter: `relation = "${params.id}"`,
-				expand: 'relation2'
+			.getFullList<SessionPerformanceResponse<{ user: UsersResponse }>>({
+				filter: `session = "${params.id}"`,
+				expand: 'user'
 			});
 
 		// Calculate net winnings and sort by Net Chips descending
@@ -86,7 +86,7 @@ export const actions: Actions = {
 			// Optional: verify session is still active
 			const session = await locals.pb
 				.collection(Collections.Session)
-				.getOne<SessionResponse>(perf.relation);
+				.getOne<SessionResponse>(perf.session);
 			if (!session.active) return fail(400, { message: 'Session is inactive' });
 
 			const newCount = Math.max(0, (perf.buy_in_count || 0) + delta);
