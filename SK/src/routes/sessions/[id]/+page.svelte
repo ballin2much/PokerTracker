@@ -63,14 +63,14 @@
 				<div class="text-left sm:text-right text-nord4 text-sm">
 					<p>
 						Blinds: <span class="text-nord6 font-semibold"
-							>${session.SB_amount} / ${session.BB_amount}</span
+							>${session.SB_amount*session.dollar_multiplier} / ${session.BB_amount*session.dollar_multiplier}</span
 						>
 					</p>
 					<p>
-						Buy-in: <span class="text-nord6 font-semibold">{session.chip_buy_in_amount} chips</span>
+						Buy-in: <span class="text-nord6 font-semibold">{session.chip_buy_in_amount} chips / ${session.dollar_multiplier*session.chip_buy_in_amount}</span>
 					</p>
 					<p>
-						Multiplier: <span class="text-nord6 font-semibold">{session.dollar_multiplier}</span>
+						Mult: <span class="text-nord6 font-semibold">1 chip = ${session.dollar_multiplier}</span>
 					</p>
 				</div>
 			</div>
@@ -171,19 +171,19 @@
 								? 'text-nord14'
 								: 'text-nord11'}"
 						>
-							{perf.net_chips > 0 ? '+' : ''}{perf.net_chips.toLocaleString()}
+							{perf.net_chips > 0 ? '+' : '('}{Math.abs(perf.net_chips).toLocaleString()}{perf.net_chips > 0 ? '' : ')'}
 						</td>
 						<td class="px-6 py-4 whitespace-nowrap text-sm text-right font-bold">
 							<span class={perf.net_dollars >= 0 ? 'text-nord14' : 'text-nord11'}>
-								{perf.net_dollars >= 0 ? '$' : '-$'}{Math.abs(perf.net_dollars).toLocaleString(
+								{perf.net_dollars > 0 ? '$' : '($'}{Math.abs(perf.net_dollars).toLocaleString(
 									undefined,
 									{ minimumFractionDigits: 2, maximumFractionDigits: 2 }
-								)}
+								)}{perf.net_dollars >= 0 ? '' : ')'}
 							</span>
 						</td>
 					</tr>
 
-					{#if expandedId === perf.id}
+					{#if expandedId === perf.id && session.active}
 						<tr class="bg-nord2">
 							<td colspan="6" class="px-4 sm:px-8 py-4 sm:py-6">
 								<div
@@ -213,7 +213,7 @@
 										class="flex flex-wrap items-center justify-between gap-3 pt-4 border-t border-nord2"
 									>
 										<div class="text-lg font-bold text-nord6">
-											Total: <span class="text-nord8">{calculatedTotal.toLocaleString()} chips</span
+											Total: <span class="text-nord8">{calculatedTotal.toLocaleString()} chips / ${calculatedTotal * session.dollar_multiplier}</span
 											>
 										</div>
 										<form
