@@ -195,7 +195,8 @@
 					<th class="px-6 py-3 text-right text-xs font-medium text-nord4 uppercase tracking-wider"
 						>Withdrawals</th
 					>
-					<th class="px-6 py-3 text-right text-xs font-medium text-nord4 uppercase tracking-wider"
+					<th
+						class="pl-6 pr-3 py-3 text-center text-xs font-medium text-nord4 uppercase tracking-wider"
 						>Owed / Due</th
 					>
 				</tr>
@@ -238,14 +239,16 @@
 								${(user.total_withdrawals ?? 0).toLocaleString()}
 							</div>
 						</td>
-						<td class="px-6 py-4 whitespace-nowrap text-right">
-							{#if (user.money_owed_due ?? 0) >= 0}
+						<td class="pl-6 pr-3 py-4 whitespace-nowrap text-center">
+							{#if (user.money_owed_due ?? 0) > 0}
 								<span class="text-sm font-mono font-bold text-nord14">
 									Owed ${(user.money_owed_due ?? 0).toLocaleString(undefined, {
 										minimumFractionDigits: 2,
 										maximumFractionDigits: 2
 									})}
 								</span>
+							{:else if (user.money_owed_due ?? 0) === 0}
+								<span class="text-sm font-mono text-nord8 italic">Even</span>
 							{:else}
 								<span class="text-sm font-mono font-bold text-nord11">
 									Due ${Math.abs(user.money_owed_due ?? 0).toLocaleString(undefined, {
