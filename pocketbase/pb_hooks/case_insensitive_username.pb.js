@@ -1,5 +1,5 @@
 onRecordAuthWithPasswordRequest((event) => {
-    if (!event.record && event.identityField === "username") {
+    if (!event.record) {
         const matches = event.app.findRecordsByFilter(
             event.collection,
             "username:lower = {:username}",
@@ -11,6 +11,7 @@ onRecordAuthWithPasswordRequest((event) => {
 
         if (matches.length > 0) {
             event.record = matches[0];
+            event.identityField = "username";
         }
     }
 
