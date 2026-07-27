@@ -163,6 +163,16 @@ export const actions: Actions = {
 		}
 
 		try {
+			const matchingUsers = await locals.pb.collection(Collections.Users).getList(1, 1, {
+				filter: locals.pb.filter('username:lower = {:username}', {
+					username: username.toLowerCase()
+				})
+			});
+
+			if (matchingUsers.items.length > 0) {
+				return fail(400, { message: 'A player with that username already exists.' });
+			}
+
 			await locals.pb.collection(Collections.Users).create({
 				username,
 				password,

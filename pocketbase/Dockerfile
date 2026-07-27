@@ -10,6 +10,7 @@ RUN wget https://github.com/pocketbase/pocketbase/releases/download/v0.39.4/pock
     && rm pocketbase_0.39.4_linux_amd64.zip
 
 COPY pb_migrations /pb/pb_migrations
+COPY pb_hooks /pb/pb_hooks
 
 EXPOSE 8080
 
