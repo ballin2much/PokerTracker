@@ -15,6 +15,10 @@
 			>
 			<a href={resolve('/')} class="text-sm hover:text-nord8 transition">Leaderboard</a>
 			<a href={resolve('/sessions')} class="text-sm hover:text-nord8 transition">Sessions</a>
+			<a href={resolve('/trainer')} class="text-sm hover:text-nord8 transition">Preflop Trainer</a>
+			<a href={resolve('/trainer/ranges')} class="text-sm text-nord13 hover:text-nord8 transition"
+				>My Ranges</a
+			>
 		</div>
 		{#if user}
 			<div class="flex items-center gap-3 sm:gap-4 text-sm">

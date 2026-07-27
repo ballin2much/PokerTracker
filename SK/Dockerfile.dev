@@ -2,18 +2,18 @@ FROM node:26-alpine
 
 WORKDIR /app
 
-# Run as the image's built-in non-root "node" user (uid/gid 1000) instead of root.
-# ./SK is bind-mounted from the host, so files this container writes (e.g. .svelte-kit/)
-# would otherwise end up root-owned on the host and unwritable by the host user.
+# su-exec lets the startup command repair permissions on a reused Docker volume,
+# then run Vite as the non-root node user.
+RUN apk add --no-cache su-exec
 RUN chown node:node /app
-USER node
 
 COPY --chown=node:node package*.json ./
-RUN npm install
+RUN su-exec node npm install
 
 COPY --chown=node:node . .
 
 EXPOSE 5173
 
-# Run the development server and bind it to all network interfaces
-CMD ["npm", "run", "dev", "--", "--host", "0.0.0.0"]
+# Anonymous node_modules volumes can retain root ownership from an older image.
+# Fix only that dependency volume, then keep generated project files host-writable.
+CMD ["sh", "-c", "chown -R node:node /app/node_modules && exec su-exec node npm run dev -- --host 0.0.0.0"]

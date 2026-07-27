@@ -25,3 +25,4 @@ npm-debug.log*
 *.key
 cert.pem
 .claude
+AGENTS.md
