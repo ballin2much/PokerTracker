@@ -8,7 +8,8 @@ export const load: PageServerLoad = async ({ locals }) => {
 	const strategy = await loadUserStrategy(locals.pb, locals.user!.id);
 	const scenarios = applyRangeOverrides(SCENARIOS, strategy.overrides);
 	const startingScenarios = scenarios.filter(
-		(scenario) => scenario.type === 'Open' || scenario.type === 'Facing open'
+		(scenario) =>
+			scenario.type === 'Open' || scenario.type === 'Facing open' || scenario.type === 'Facing limp'
 	);
 	const question = makeQuestion(startingScenarios);
 

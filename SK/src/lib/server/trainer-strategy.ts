@@ -79,7 +79,8 @@ export async function saveScenarioRange(
 				players: 6,
 				stackDepthBb: 100,
 				ante: 0,
-				openSizeBb: 2.5
+				openSizeBb: 2.5,
+				sbOpenSizeBb: 3.5
 			}
 		}));
 	if (!pack) throw new Error('PocketBase did not return the created strategy pack.');

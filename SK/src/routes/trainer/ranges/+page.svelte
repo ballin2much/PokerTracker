@@ -4,10 +4,27 @@
 	import RangeGrid from '$lib/components/RangeGrid.svelte';
 	import { SCENARIOS } from '$lib/trainer/ranges';
 	import { pureActionMix, scenarioToActionMap, type ActionMap } from '$lib/trainer/strategy';
-	import { ACTIONS, type TrainerAction } from '$lib/trainer/types';
+	import { ACTIONS, POSITIONS, type SpotType, type TrainerAction } from '$lib/trainer/types';
 	import type { PageProps } from './$types';
 
 	let { data, form }: PageProps = $props();
+
+	const spotTypeOrder: SpotType[] = [
+		'Open',
+		'Facing open',
+		'Facing limp',
+		'Facing 3-bet',
+		'Facing 4-bet'
+	];
+	const spotGroups = POSITIONS.map((hero) => ({
+		hero,
+		scenarios: SCENARIOS.filter((scenario) => scenario.hero === hero).sort(
+			(a, b) =>
+				spotTypeOrder.indexOf(a.type) - spotTypeOrder.indexOf(b.type) ||
+				POSITIONS.indexOf(a.villain ?? a.hero) - POSITIONS.indexOf(b.villain ?? b.hero) ||
+				a.label.localeCompare(b.label)
+		)
+	})).filter((group) => group.scenarios.length > 0);
 
 	let selectedSpot = $state(SCENARIOS[0].id);
 	let brush = $state<TrainerAction>('Raise');
@@ -94,8 +111,12 @@
 						bind:value={selectedSpot}
 						class="w-full rounded-lg border border-nord3 bg-nord0 px-3 py-2.5 text-nord6 outline-none focus:ring-2 focus:ring-nord8"
 					>
-						{#each SCENARIOS as scenario (scenario.id)}
-							<option value={scenario.id}>{scenario.label}</option>
+						{#each spotGroups as group (group.hero)}
+							<optgroup label={group.hero}>
+								{#each group.scenarios as scenario (scenario.id)}
+									<option value={scenario.id}>{scenario.label}</option>
+								{/each}
+							</optgroup>
 						{/each}
 					</select>
 				</label>
@@ -139,7 +160,9 @@
 					><span class="mr-1 inline-block h-3 w-3 rounded bg-nord9/60"
 					></span>{selectedScenario.type === 'Open' && selectedScenario.hero === 'SB'
 						? 'Limp'
-						: 'Call'}</span
+						: selectedScenario.type === 'Facing limp'
+							? 'Check'
+							: 'Call'}</span
 				>
 				<span><span class="mr-1 inline-block h-3 w-3 rounded bg-nord3"></span>Fold</span>
 				<span class="ml-auto">{isDirty ? 'Unsaved changes' : 'Saved/default range'}</span>

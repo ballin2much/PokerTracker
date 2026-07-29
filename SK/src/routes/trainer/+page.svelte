@@ -14,7 +14,12 @@
 
 	let { data }: PageProps = $props();
 
-	const SPOT_TYPES: Array<SpotType | 'All spots'> = ['All spots', 'Open', 'Facing open'];
+	const SPOT_TYPES: Array<SpotType | 'All spots'> = [
+		'All spots',
+		'Open',
+		'Facing open',
+		'Facing limp'
+	];
 
 	let spotType = $state<SpotType | 'All spots'>('All spots');
 	let generatedQuestion = $state<Question | null>(null);
@@ -22,7 +27,10 @@
 	const availableScenarios = $derived(applyRangeOverrides(SCENARIOS, data.rangeOverrides));
 	const startingScenarios = $derived(
 		availableScenarios.filter(
-			(scenario) => scenario.type === 'Open' || scenario.type === 'Facing open'
+			(scenario) =>
+				scenario.type === 'Open' ||
+				scenario.type === 'Facing open' ||
+				scenario.type === 'Facing limp'
 		)
 	);
 	const initialScenario = $derived(
@@ -110,7 +118,7 @@
 				<p class="mb-1 text-xs font-bold tracking-[0.2em] text-nord8 uppercase">Study mode</p>
 				<h1 class="text-3xl font-bold text-nord6 sm:text-4xl">6-Max Preflop Trainer</h1>
 				<p class="mt-2 max-w-2xl text-sm text-nord4">
-					100bb cash · no ante · 2.5bb opens (3bb from SB) ·
+					100bb cash · no ante · 2.5bb opens (3.5bb from SB) ·
 					{data.strategy
 						? `${data.strategy.name} v${data.strategy.version}`
 						: 'bundled baseline strategy'}

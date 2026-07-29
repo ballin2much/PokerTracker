@@ -1,13 +1,13 @@
-import { ACTIONS, type Scenario, type TrainerAction } from './types';
-import { ALL_HANDS, getAction } from './ranges';
+import {
+	ACTIONS,
+	type ActionMap,
+	type ActionMix,
+	type Scenario,
+	type TrainerAction
+} from './types';
+import { ALL_HANDS } from './ranges';
 
-export type ActionMix = {
-	Fold: number;
-	Call: number;
-	Raise: number;
-};
-
-export type ActionMap = Record<string, ActionMix>;
+export type { ActionMap, ActionMix } from './types';
 
 export type RangeOverride = {
 	spotKey: string;
@@ -25,9 +25,7 @@ export function pureActionMix(action: TrainerAction): ActionMix {
 }
 
 export function scenarioToActionMap(scenario: Scenario): ActionMap {
-	return Object.fromEntries(
-		ALL_HANDS.map((hand) => [hand, pureActionMix(getAction(scenario, hand))])
-	);
+	return scenario.actions;
 }
 
 export function dominantAction(mix: ActionMix): TrainerAction {
@@ -73,14 +71,6 @@ export function applyRangeOverrides(scenarios: Scenario[], overrides: RangeOverr
 	return scenarios.map((scenario) => {
 		const actions = bySpot.get(scenario.id);
 		if (!actions) return scenario;
-
-		const callRange = new Set<string>();
-		const raiseRange = new Set<string>();
-		for (const hand of ALL_HANDS) {
-			const action = dominantAction(actions[hand]);
-			if (action === 'Call') callRange.add(hand);
-			if (action === 'Raise') raiseRange.add(hand);
-		}
-		return { ...scenario, callRange, raiseRange };
+		return { ...scenario, actions };
 	});
 }

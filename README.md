@@ -11,7 +11,7 @@ A private leaderboard, session tracker, and six-max preflop trainer for a home p
 - A warning banner when a finished session's total buy-ins don't reconcile with total ending stacks
 - Admin-only controls: ending a session, recording ending stacks, adding deposit/withdrawal transactions, and creating new player accounts
 - No public self-registration — new accounts are created by an admin from the leaderboard page
-- Interactive 100bb, no-ante six-max preflop trainer covering first-in, facing-open, 3-bet, and 4-bet decisions
+- Interactive 100bb, no-ante six-max preflop trainer covering every facing-open matchup and blind-versus-blind limp responses
 - Sequential hands that can continue from an opening decision into a 3-bet response
 - Traditional six-seat table layout with larger four-color playing cards and exact action sizes
 - Personal graphical range editor using a 13×13 starting-hand matrix

@@ -24,8 +24,9 @@
 		if (position === scenario.hero) return 'Your turn';
 		if (position === scenario.villain) {
 			if (scenario.type === 'Facing open') {
-				return scenario.villain === 'SB' ? 'Raised 3bb' : 'Raised 2.5bb';
+				return scenario.villain === 'SB' ? 'Raised 3.5bb' : 'Raised 2.5bb';
 			}
+			if (scenario.type === 'Facing limp') return 'Limped';
 			if (scenario.type === 'Facing 3-bet') return '3-bet';
 			if (scenario.type === 'Facing 4-bet') return '4-bet';
 		}
@@ -38,7 +39,11 @@
 	}
 
 	function stack(position: Position) {
-		if (position === scenario.hero) return scenario.type === 'Open' ? '100 BB' : '97.5 BB';
+		if (position === scenario.hero) {
+			if (scenario.type === 'Open') return '100 BB';
+			if (scenario.type === 'Facing limp') return '99 BB';
+			return '97.5 BB';
+		}
 		if (position === scenario.villain) return 'In hand';
 		if (position === 'SB') return '99.5 BB';
 		if (position === 'BB') return '99 BB';

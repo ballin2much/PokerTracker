@@ -3,9 +3,17 @@ export const ACTIONS = ['Fold', 'Call', 'Raise'] as const;
 
 export type Position = (typeof POSITIONS)[number];
 export type TrainerAction = (typeof ACTIONS)[number];
-export type SpotType = 'Open' | 'Facing open' | 'Facing 3-bet' | 'Facing 4-bet';
+export type SpotType = 'Open' | 'Facing open' | 'Facing limp' | 'Facing 3-bet' | 'Facing 4-bet';
 export type Suit = 'spades' | 'hearts' | 'diamonds' | 'clubs';
 export type Card = { rank: string; suit: Suit };
+
+export type ActionMix = {
+	Fold: number;
+	Call: number;
+	Raise: number;
+};
+
+export type ActionMap = Record<string, ActionMix>;
 
 export type Scenario = {
 	id: string;
@@ -16,8 +24,7 @@ export type Scenario = {
 	pot: string;
 	callLabel: string;
 	raiseLabel: string;
-	callRange: ReadonlySet<string>;
-	raiseRange: ReadonlySet<string>;
+	actions: ActionMap;
 };
 
 export type Question = {
